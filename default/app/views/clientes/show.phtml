@@ -1,0 +1,109 @@
+<a href="<?= URL_APP ?>clientes/" class="back btn btn-outline-success mb-3">Regresar</a>
+
+<div class="row mb-4">
+    <!-- Card del cliente -->
+    <div class="col-md-6">
+        <div class="card border-success"> <!-- Borde verde -->
+            <div class="row g-0">
+                <h1 class="card-title text-center mt-2">[<?= $cliente->id ?>] <?= $cliente->nombre ?></h1>
+                <div class="col-md-4 d-flex align-items-center justify-content-center p-3">
+                    <?= htmlbs::img("comprador/$cliente->id.jpg", "", ["width" => "140px", "class" => "img-fluid rounded"]) ?>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text">Nombre: <strong><?= $cliente->nombre ?></strong></p>
+                        <p class="card-text">Email: <strong><?= $cliente->email ?></strong></p>
+                        <p class="card-text">Teléfono: <strong><?= $cliente->telefono ?></strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráfica -->
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <canvas id="ventasChart" width="400" height="300"></canvas>
+    </div>
+</div>
+
+<!-- Tabla de compras -->
+<h2>Compras realizadas por este cliente</h2>
+
+<?php $ventas = $cliente->getVentas(); ?>
+
+<?php if ($ventas): ?>
+    <div style="max-height: 250px; overflow-y: auto;">
+        <table class="table table-bordered table-striped table-hover border-success">
+            <thead class="table-success text-center">
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($ventas as $i => $venta): ?>
+                <tr>
+                    <td><?= $i + 1 ?></td>
+                    <td><?= date("d/m/Y", strtotime($venta->created_at)) ?></td>
+                    <td>$<?= number_format((float)$venta->total, 2) ?></td>
+                    <td><?= ucwords($venta->status) ?></td>
+                </tr>
+            <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+    <p class="text-muted">Este cliente aún no tiene compras registradas.</p>
+<?php endif ?>
+
+<!-- Script de gráfica -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('ventasChart').getContext('2d');
+
+    const chartData = {
+        //labels: <?php //= json_encode(array_map(fn($v) => date("d/m", strtotime($v->created_at)), $ventas)) ?>//,
+        labels: <?= json_encode(array_map(fn($v) => date("M d", strtotime($v->created_at)), $ventas)) ?>,
+
+        datasets: [{
+            label: 'Ventas ($)',
+            data: <?= json_encode(array_map(fn($v) => (float) $v->total, $ventas)) ?>,
+            backgroundColor: 'rgba(40, 167, 69, 0.2)',  // Verde claro
+            borderColor: 'rgba(40, 167, 69, 1)',        // Verde fuerte
+            borderWidth: 2,
+            tension: 0.3,
+            fill: true,
+            pointBackgroundColor: 'rgba(40, 167, 69, 1)',
+        }]
+    };
+
+    new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#198754'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#198754'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#198754'
+                    }
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,33 @@
+<h4>Ventas pendientes de pago</h4>
+
+<form action="<?=URL_APP?>/pagos/finalizar/<?=$cliente_id?>">
+    <table class="table table-sm table-hover table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Abonado</th>
+                <th>Por pagar</th>
+
+                <th>A pagar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        <?php foreach ($ventas as $v): ?>
+            <tr>
+                <td><?= $v->id ?></td>
+                <td><?= $v->created_at ?></td>
+                <td><?= ($v ->total) ?></td>
+                <td><?= ($v->total - $v->por_pagar) ?></td>
+                <td><?= $v->por_pagar?></td>
+
+                <td><input name="ventas[<?=$v->id?>]" type="text"></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" type="submit">Pagar</button>
+</form>
+

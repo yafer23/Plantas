@@ -1,0 +1,27 @@
+<a href="<?= URL_APP ?>pagos/nuevo" class="btn btn-outline-success">Regresar</a>
+
+<h1>Registrar pago</h1>
+
+<!-- Formulario para seleccionar un cliente -->
+<?php if ($cliente == null): ?>
+    <div class="row">
+        <div class="col-8">
+            <form method="get" action="">
+                <label class="control-label"><strong>Cliente</strong></label><br>
+                <select name="cliente" class="form-control js-example-basic-single">
+                    <?php foreach ($clientes as $cliente): ?>
+                        <option value="<?= $cliente->id ?>"><?= $cliente->nombre ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <button class="btn btn-success">Seleccionar</button>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($cliente != null && is_array($ventas) && count($ventas) > 0): ?>
+    <?= View::partial("pagos/ventas_adeudo", null, ["ventas" => $ventas, "cliente_id" => $cliente->id]) ?>
+<?php endif; ?>
+
+
+

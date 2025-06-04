@@ -1,0 +1,31 @@
+<h1>Ventas</h1>
+<table class="table table-sm table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Vendedor</th>
+        <th>Método Pago</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($ventas as $v): ?>
+        <tr>
+            <td><?= $v->id ?></td>
+            <td><?= $v->created_at ?></td>
+            <td><?= $v->clientes_id ?></td>
+            <td><?= $v->getVendedor()->nombre ?></td>
+            <td><?= $v->getMetodo()->nombre ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+
+<style>
+    th, td {
+        padding: 10px; /* Espacio dentro de las celdas */
+        text-align: left; /* Alineación del texto */
+        border: 1px solid #ddd; /* Borde para las celdas */
+    }
+</style>

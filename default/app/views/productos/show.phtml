@@ -1,0 +1,121 @@
+<a href="<?=URL_APP?>productos/" class="back btn btn-outline-success">Regresar</a>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <?= htmlbs::img("producto/$producto->id.JPG", "", ["width" => "330px"]) ?>
+        </div>
+        <div class="col-6">
+            <div class="product-container">
+                <h1 class="product-title"><?=$producto->nombre?></h1>
+<!--                <span class="product-price">$ --><?php //=$producto->precio?><!--</span>-->
+                <span class="price-tag">$<?= number_format($producto->precio, 2) ?></span>
+
+                <div class="product-info">
+                    <br>
+                    <p><i class="fas fa-tint"></i> Una vez por semana. Mantén húmeda su tierra</p>
+                    <p><i class="fas fa-leaf"></i> Alivianada</p>
+                    <p><i class="fas fa-sun"></i> Resolana</p>
+                </div>
+
+<!--                <div class="quantity">-->
+<!--                    <p>Cantidad:</p>-->
+<!--                    <div class="quantity-controls">-->
+<!--                        <button>-</button>-->
+<!--                        <span>1</span>-->
+<!--                        <button>+</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--                <button class="add-to-cart">AGREGAR AL CARRITO</button>-->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="r">
+                <div class="info-box">
+                    <div class="info-item">
+                        <i class="fas fa-star"></i>
+                        <p class="title">DIFICULTAD</p>
+                        <p class="value">Fácil</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p class="title">TOXICIDAD</p>
+                        <p class="value">Tóxica</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-sun"></i>
+                        <p class="title">LUZ</p>
+                        <p class="value">Indirecta alta</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-tint"></i>
+                        <p class="title">RIEGO</p>
+                        <p class="value">Moderado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .info-box {
+        margin-top: 10px;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+        border: 2px solid #c5b299;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #f7f5f2;
+    }
+
+    .info-item {
+        flex: 1;
+        text-align: center;
+        padding: 15px;
+        border-right: 1px solid #c5b299;
+        color: #a08d74;
+    }
+
+    .info-item:last-child {
+        border-right: none;
+    }
+
+    .info-item i {
+        font-size: 20px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .value {
+        font-size: 16px;
+        color: #444;
+    }
+
+    .price-tag {
+        display: inline-block;
+        background-color: #c5b299;
+        color: white;
+        padding: 10px 18px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 25px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+
+</style>

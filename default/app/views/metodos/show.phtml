@@ -1,0 +1,44 @@
+<a href="<?= URL_APP ?>metodos/" class="btn btn-outline-success">Regresar</a>
+
+<h1 class="text-center text-primary mb-4">Método de Pago #<?= $metodo->id ?></h1>
+
+<ul class="list-group mb-4">
+    <li class="list-group-item">
+        <strong>ID:</strong> <?= $metodo->id ?>
+    </li>
+    <li class="list-group-item">
+        <strong>Nombre:</strong> <?= $metodo->nombre ?>
+    </li>
+</ul>
+
+<h2 class="text-success mb-3">
+    <i class="fa-solid fa-credit-card"></i> Ventas realizadas con este método de pago
+</h2>
+
+<?php $ventas = $metodo->getVentas(); ?>
+
+<?php if (!empty($ventas)): ?>
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead class="table-success">
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($ventas as $venta): ?>
+            <tr>
+                <td><?= $venta->id ?></td>
+                <td><?= $venta->cliente->nombre ?? 'Sin cliente' ?></td>
+                <td><?= $venta->created_at ?></td>
+                <td class="text-success fw-bold">
+                    $<?= number_format((float) $venta->total, 2) ?>
+                </td>            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p class="text-muted">No hay ventas registradas con este método de pago.</p>
+<?php endif; ?>

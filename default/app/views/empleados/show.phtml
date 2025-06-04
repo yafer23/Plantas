@@ -1,0 +1,138 @@
+<a href="<?= URL_APP ?>empleados/" class="back btn btn-outline-success mb-4">Regresar</a>
+
+<div class="container">
+    <div class="row">
+        <!-- Card del empleado -->
+        <div class="col-md-6">
+            <?= View::partial("empleados/card", null, ["empleado" => $empleado]) ?>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="col-md-3">
+            <div class="card border-warning mb-3">
+                <div class="card-body">
+                    <h5 class="text-muted">Total de ventas</h5>
+                    <h4>
+                        <span class="badge bg-light-warning border border-warning">
+                            $<?= number_format((float)$estadisticas['total_compras'], 2) ?>
+                        </span>
+                    </h4>
+                </div>
+            </div>
+
+            <div class="card border-success">
+                <div class="card-body">
+                    <h5 class="text-muted">Número de ventas</h5>
+                    <h4>
+                        <span class="badge bg-light-success border border-success">
+                            <?= (int)$estadisticas['numero_compras'] ?>
+                        </span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico -->
+        <div class="col-md-3">
+            <div class="card border-success">
+                <div class="card-body">
+                    <h5 class="text-muted text-center">Ventas por mes</h5>
+                    <canvas id="ventasChart" width="100" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ventas -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <h3>Ventas realizadas por este empleado</h3>
+        </div>
+
+        <?php foreach ($empleado->getVentas() as $venta): ?>
+            <div class="col-md-12 mb-4">
+                <div class="card border-success">
+                    <div class="card-header bg-light text-success fw-bold">
+                        Venta #<?= $venta->id ?> - <?= date('d M Y', strtotime($venta->created_at)) ?>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Cantidad de productos:</strong> <?= $venta->getCantidadProductos() ?></p>
+                        <p><strong>Importe total:</strong> $<?= number_format((float)$venta->total, 2) ?></p>
+
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-striped">
+                                <thead class="table-success">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th>Importe</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($venta->getDetalles() as $detalle): ?>
+                                    <tr>
+                                        <td><?= $detalle->producto->nombre ?></td>
+                                        <td><?= $detalle->cantidad ?></td>
+                                        <td>$<?= number_format((float)$detalle->unitario, 2) ?></td>
+                                        <td>$<?= number_format((float)$detalle->importe, 2) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<!-- Carga Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<?php
+// ventas por mes
+$ventasPorMes = [];
+foreach ($empleado->getVentas() as $venta) {
+    $mes = date('M', strtotime($venta->created_at));
+    if (!isset($ventasPorMes[$mes])) {
+        $ventasPorMes[$mes] = 0;
+    }
+    $ventasPorMes[$mes]++;
+}
+ksort($ventasPorMes); // Orden alfabético de mes
+$meses = json_encode(array_keys($ventasPorMes));
+$valores = json_encode(array_values($ventasPorMes));
+?>
+
+<script>
+    const ctx = document.getElementById('ventasChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?= $meses ?>,
+            datasets: [{
+                label: 'Ventas por mes',
+                data: <?= $valores ?>,
+                backgroundColor: 'rgba(40,167,69,0.6)', // verde
+                borderColor: 'rgba(40,167,69,1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+</script>

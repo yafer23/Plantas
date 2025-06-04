@@ -1,0 +1,31 @@
+<a href="<?= URL_APP ?>detalles/" class="btn btn-outline-success mb-4">Regresar</a>
+
+<h1 class="text-center text-primary mb-4">Detalle de Venta #<?= $detalle_venta->ventas_id ?></h1>
+
+<div class="row justify-content-center align-items-center">
+    <!-- Imagen del producto -->
+    <div class="col-md-5 text-center mb-4">
+        <?= htmlbs::img("producto/{$producto->id}.JPG", "", [
+            "width" => "100%",
+            "style" => "max-width: 350px;",
+            "class" => "rounded"
+        ]) ?>
+    </div>
+
+    <!-- Card -->
+    <div class="col-md-6">
+        <ul class="list-unstyled fs-5">
+<!--            <li class="mb-2"><strong class="text-muted">ID:</strong> --><?php //= $detalle_venta->id ?><!--</li>-->
+            <li class="mb-2"><strong class="text-muted">Venta ID:</strong> <?= $detalle_venta->ventas_id ?></li>
+            <li class="mb-2">
+                <strong class="text-muted">Producto:</strong>
+                <span class="text-success fw-bold ms-2"><?= $detalle_venta->producto->nombre ?? 'No disponible' ?></span>
+            </li>
+            <li class="mb-2"><strong class="text-muted">Cantidad:</strong> <?= $detalle_venta->cantidad ?></li>
+            <li class="mb-2">
+                <strong class="text-muted">Subtotal:</strong>
+                <span class="text-success fw-bold"> $<?= number_format($detalle_venta->subtotal, 2) ?></span>
+            </li>
+        </ul>
+    </div>
+</div>

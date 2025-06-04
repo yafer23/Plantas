@@ -1,0 +1,36 @@
+<h1>Clientes</h1>
+<a href="<?= URL_APP ?>clientes/registrar" class="btn btn-outline-success">Registrar <i class="fa-solid fa-pencil"></i></a>
+
+<style>
+    th, td {
+        padding: 10px; /* Espacio dentro de las celdas */
+        text-align: left; /* Alineación del texto */
+        border: 1px solid #ddd; /* Borde para las celdas */
+    }
+</style>
+<table class="table table-striped table-hover myTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+    <?php foreach ($clientes as $p): ?>
+        <tr>
+
+            <td><?=Html::link("clientes/show/{$p->id}","Ver",["title"=>"ir a cliente","class"=>"btn btn-sm"])?></td>
+            <td><a href="<?= URL_APP ?>clientes/show/<?= $p->id ?>"> <?= $p->nombre?></a> </td>
+            <td><?=$p->email?></td>
+            <td><?=$p->telefono?></td>
+        </tr>
+    <?php endforeach; ?>
+
+
+    </tbody>
+
+</table>

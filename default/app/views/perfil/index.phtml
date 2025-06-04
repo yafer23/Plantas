@@ -1,0 +1,45 @@
+<a href="<?= URL_APP ?>" class="btn btn-outline-success mb-4">
+    <i class="fa-solid fa-arrow-left"></i> Inicio
+</a>
+
+<h1 class="text-center text-primary mb-4">Perfil de Usuario</h1>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <!-- Imagen -->
+        <div class="col-md-4 text-center mb-4">
+            <?= htmlbs::img("perfil/yara.jpg", "Foto de perfil", [
+                "class" => "rounded-circle shadow",
+                "style" => "width: 250px; height: 250px; object-fit: cover;"
+            ]) ?>
+        </div>
+
+        <!-- Información -->
+        <div class="col-md-6">
+            <div class="card p-4 bg-light border-0">
+                <ul class="list-group list-group-flush fs-5">
+                    <li class="list-group-item bg-light border-0">
+                        <strong class="text-muted">Nombre:</strong>
+                        <span class="ms-2 text-success fw-bold">Yara Fernanda Juárez Gómez</span>
+                    </li>
+                    <li class="list-group-item bg-light border-0">
+                        <strong class="text-muted">Número de Control:</strong>
+                        <span class="ms-2">21590477</span>
+                    </li>
+                    <li class="list-group-item bg-light border-0">
+                        <strong class="text-muted">Rol:</strong>
+                        <span class="ms-2">Estudiante</span>
+                    </li>
+                    <li class="list-group-item bg-light border-0">
+                        <strong class="text-muted">Carrera:</strong>
+                        <span class="ms-2">Ingeniería en Sistemas Computacionales</span>
+                    </li>
+                    <li class="list-group-item bg-light border-0">
+                        <strong class="text-muted">Materia:</strong>
+                        <span class="ms-2">Programación</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

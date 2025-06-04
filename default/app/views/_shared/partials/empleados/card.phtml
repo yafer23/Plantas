@@ -1,0 +1,15 @@
+<div class="card border-primary mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <h1 class="card-title text-center">[<?= $empleado->id ?>] <?= $empleado->nombre ?></h1>
+        <div class="col-md-4" style="padding: 30px;">
+            <?= htmlbs::img("vendedor/$empleado->id.jpg", "", ["width" => "140px"]) ?>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body ms-2">
+                <p class="card-text">Nombre: <strong><?= $empleado->nombre ?></strong></p>
+                <p class="card-text">Email: <strong><?= $empleado->email ?></strong></p>
+                <p class="card-text">Teléfono:  <strong><?= $empleado->telefono ?></strong></p>
+            </div>
+        </div>
+    </div>
+</div>

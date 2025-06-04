@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-4">
+        <form method="post">
+            <label>Producto</label>
+            <select name="producto_id" class="form-control">
+                <option value="1">Producto 1</option>
+                <option value="8">Producto 8</option>
+                <option value="99">Producto 99</option>
+            </select>
+            <button class="btn btn-success">Seleccionar</button>
+        </form>
+    </div>
+    <div class="col-8">
+        <?php if ($venta != null): ?>
+            <table class="table table-sm">
+                <thead>
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Descripción</th>
+                    <th>Unitario</th>
+                    <th>Importe</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($venta->getItems() as $i): ?>
+                    <tr>
+                        <td><?= $i->cantidad ?></td>
+                        <td><?= $i->descripcion ?></td>
+                        <td><?= $i->unitario ?></td>
+                        <td><?= $i->importe ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </div>
+</div>
