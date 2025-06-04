@@ -1,9 +1,8 @@
 <a href="<?= URL_APP ?>pagos/nuevo" class="btn btn-outline-success">Regresar</a>
+<h1>Total abonado: $<?= number_format($total_a_abonar, 2) ?></h1>
 <?php foreach ($ventas_a_pagar as $v): ?>
 
 <?= Flash::show('default', 'flash') ?>
-
-<h1>Total abonado: $<?= number_format($total_a_abonar, 2) ?></h1>
 
 
 <!--<h1>Total por pagar: $--><?php //=number_format($v->por_pagar)?><!--</h1>-->
