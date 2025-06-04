@@ -58,7 +58,9 @@ define('APP_PATH', dirname(__DIR__).'/app/');
 //const APP_PATH = '/path/to/app/';
 
 //local
-define('URL_APP', 'http://localhost:81/kumbiaphp/');
+//define('URL_APP', 'http://localhost:81/kumbiaphp/');
+define('URL_APP', 'https://plantnet-jpili.ondigitalocean.app/');
+
 
 //define('URL_APP', 'https://e653675b91030591082f6412218fb6a3.serveo.net/kumbiaphp');
 
